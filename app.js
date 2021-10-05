@@ -10,7 +10,6 @@ const express         = require("express"),
     methodOverride  = require("method-override"),
     flash           = require("connect-flash");
 
-const ip = process.env.IP || '127.0.0.1';
 const port = process.env.PORT || 3000;
 
 const commentRoutes   = require("./routes/comments"),
@@ -53,6 +52,6 @@ app.use("/", indexRoutes);
 app.use("/books", bookRoutes);
 app.use("/books/:id/comments", commentRoutes);
 
-app.listen(port, ip, function(){
+app.listen(port, function(){
     console.log("The Literary Labyrinth Server has started!");
 });
