@@ -1,7 +1,7 @@
-var mongoose    = require("mongoose");
+const mongoose    = require("mongoose");
 
 // SCHEMA SETUP
-var bookSchema = new mongoose.Schema({
+const bookSchema = new mongoose.Schema({
     name: String,
     writer: String,
     price: String,

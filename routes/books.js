@@ -1,7 +1,7 @@
-var express = require("express");
-var router = express.Router();
-var Book = require("../models/book");
-var middleware = require("../middleware");
+const express = require("express");
+const router = express.Router();
+const Book = require("../models/book");
+const middleware = require("../middleware");
 
 router.get("/", function(req, res){
     Book.find({}, function(err, allBooks){
@@ -14,16 +14,16 @@ router.get("/", function(req, res){
 });
 
 router.post("/", middleware.isLoggedIn, function(req, res){
-   var name = req.body.name;
-   var writer = req.body.writer;
-   var price = req.body.price;
-   var image = req.body.image;
-   var desc = req.body.description;
-   var author = {
+   const name = req.body.name;
+   const writer = req.body.writer;
+   const price = req.body.price;
+   const image = req.body.image;
+   const desc = req.body.description;
+   const author = {
        id: req.user._id,
        username: req.user.username
    }
-   var newBook = {name: name, writer: writer, price: price, image: image, description: desc, author: author};
+   const newBook = {name: name, writer: writer, price: price, image: image, description: desc, author: author};
    Book.create(newBook, function(err, newlyCreated){
        if(err){
            console.log(err);

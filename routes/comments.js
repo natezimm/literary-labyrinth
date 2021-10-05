@@ -1,8 +1,8 @@
-var express = require("express");
-var router = express.Router({mergeParams: true});
-var Book = require("../models/book");
-var Comment = require("../models/comment");
-var middleware = require("../middleware");
+const express = require("express");
+const router = express.Router({mergeParams: true});
+const Book = require("../models/book");
+const Comment = require("../models/comment");
+const middleware = require("../middleware");
 
 router.get("/new", middleware.isLoggedIn, function(req, res){
    Book.findById(req.params.id, function(err, book){

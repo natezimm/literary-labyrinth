@@ -1,4 +1,4 @@
-var express         = require("express"),
+const express         = require("express"),
     app             = express(),
     bodyParser      = require("body-parser"),
     mongoose        = require("mongoose"),
@@ -10,10 +10,10 @@ var express         = require("express"),
     methodOverride  = require("method-override"),
     flash           = require("connect-flash");
 
-var ip = process.env.IP || '127.0.0.1',
-    port = process.env.PORT || 3000;
+const ip = process.env.IP || '127.0.0.1';
+const port = process.env.PORT || 3000;
 
-var commentRoutes   = require("./routes/comments"),
+const commentRoutes   = require("./routes/comments"),
     bookRoutes = require("./routes/books"),
     indexRoutes     = require("./routes/index");
 

@@ -1,6 +1,6 @@
-var Book = require("../models/book");
-var Comment = require("../models/comment");
-var middlewareObj = {};
+const Book = require("../models/book");
+const Comment = require("../models/comment");
+const middlewareObj = {};
 
 middlewareObj.checkBookOwnership = function (req, res, next) {
     if(req.isAuthenticated()){
