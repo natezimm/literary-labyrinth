@@ -8,7 +8,7 @@ var express         = require("express"),
     Comment         = require("./models/comment"),
     User            = require("./models/user"),
     methodOverride  = require("method-override"),
-    flash           = require("connect-flash"),
+    flash           = require("connect-flash");
 
 var ip = process.env.IP || '127.0.0.1',
     port = process.env.PORT || 3000;
