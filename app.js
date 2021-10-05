@@ -16,16 +16,27 @@ const commentRoutes   = require("./routes/comments"),
 
 const port = process.env.PORT || 3000;
 
-const MONGODB_URI = process.env.databaseURL || 'mongodb://localhost:27017/literary_labyrinth';
-mongoose.connect(MONGODB_URI, {
-	  useNewUrlParser: true,
-	  dbName: "literary_labyrinth",
-	  useFindAndModify: false,
-    useUnifiedTopology: true
-}, ).then(() => {
-	  console.log('Connected to DB!');
-}).catch(err => {
-	  console.log('ERROR:', err.message);
+// const MONGODB_URI = process.env.databaseURL;
+// mongoose.connect(MONGODB_URI, {
+// 	  useNewUrlParser: true,
+// 	  dbName: "literary_labyrinth",
+// 	  useFindAndModify: false,
+//     useUnifiedTopology: true
+// }, ).then(() => {
+// 	  console.log('Connected to DB!');
+// }).catch(err => {
+// 	  console.log('ERROR:', err.message);
+// });
+
+const PASSWORD;
+
+const { MongoClient } = require('mongodb');
+const uri = "mongodb+srv://Nathan:" + PASSWORD + "@literarylabyrinth.9xab2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
 });
 
 // mongoose.connect('mongodb://localhost:27017/literary_labyrinth',
