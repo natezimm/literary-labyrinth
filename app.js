@@ -17,6 +17,7 @@ const commentRoutes   = require("./routes/comments"),
 const port = process.env.PORT || 3000;
 
 const MONGODB_URI = process.env.databaseURL;
+mongoose.set('bufferCommands', false);
 mongoose.connect(MONGODB_URI, {
 	  useNewUrlParser: true,
 	  dbName: "literary_labyrinth",
