@@ -1,0 +1,58 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 dropdown">
+            <button class="dropbtn btn-primary">Links</button>
+            <div class="list-group dropdown-content">
+                <li class="list-group-item" id="book-list"><a href="/books">Book List</a></li>
+                <li class="list-group-item" id="amazon"><a href="https://www.amazon.com/s?k=<%= book.name %>&ref=nb_sb_noss_2" target="_blank" rel="noopener noreferrer">Amazon</a></li>
+                <li class="list-group-item" id="goodreads"><a href="https://www.goodreads.com/search?utf8=%E2%9C%93&q=<%= book.name %>&search_type=books" target="_blank" rel="noopener noreferrer">Goodreads</a></li>
+                <li class="list-group-item" id="wikipedia"><a href="https://en.wikipedia.org/w/index.php?search=<%= book.name %>&title=Special%3ASearch&go=Go&ns0=1" target="_blank" rel="noopener noreferrer">Wikipedia</a></li>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="thumbnail">
+                <img class="img-responsive book-image" src="<%= book.image %>">
+                <div class="caption-full">
+                    <h4 class="pull-right">$<%= book.price %></h4>
+                    <h4><%= book.name %></h4>
+                    <h5><%= book.writer %></h5>
+                    <p><%= book.description %></p>
+                    <p>
+                        <em>Submitted By <%= book.author.username %></em>
+                    </p>
+                    <% if(currentUser && book.author.id.equals(currentUser._id)){ %>
+                        <a class="btn btn-warning" href="/books/<%= book._id %>/edit">Edit</a>
+                        <form class="delete-form" action="/books/<%= book._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">Delete</button>
+                    <% } %>
+                    </form>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/books/<%= book._id %>/comments/new">Add New Comment</a>
+                </div>
+                <hr>
+                <% book.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= comment.author.username %></strong>
+                            <span class="pull-right">10 days ago</span>
+                            <p>
+                                <%= comment.text %>
+                            </p>
+                            <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                                <a class="btn btn-xs btn-warning" href="/books/<%= book._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                                <form class="delete-form" action="/books/<%= book._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                    <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                                </form>
+                             <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>
