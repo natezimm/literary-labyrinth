@@ -1,28 +1,40 @@
 const express         = require("express"),
-    app             = express(),
-    bodyParser      = require("body-parser"),
-    mongoose        = require("mongoose"),
-    passport        = require("passport"),
-    LocalStrategy   = require("passport-local"),
-    Book            = require("./models/book"),
-    Comment         = require("./models/comment"),
-    User            = require("./models/user"),
-    methodOverride  = require("method-override"),
-    flash           = require("connect-flash");
+      app             = express(),
+      bodyParser      = require("body-parser"),
+      mongoose        = require("mongoose"),
+      passport        = require("passport"),
+      LocalStrategy   = require("passport-local"),
+      Book            = require("./models/book"),
+      Comment         = require("./models/comment"),
+      User            = require("./models/user"),
+      methodOverride  = require("method-override"),
+      flash           = require("connect-flash");
+
+const commentRoutes   = require("./routes/comments"),
+      bookRoutes      = require("./routes/books"),
+      indexRoutes     = require("./routes/index");
 
 const port = process.env.PORT || 3000;
 
-const commentRoutes   = require("./routes/comments"),
-    bookRoutes = require("./routes/books"),
-    indexRoutes     = require("./routes/index");
-
-mongoose.connect('mongodb://localhost:27017/literary_labyrinth',
-  {
-    useNewUrlParser: true,
-    useFindAndModify: false,
+const mongoURI = process.env.databaseURL || 'mongodb://localhost:27017/literary_labyrinth';
+mongoose.connect(mongoURI, {
+	  useNewUrlParser: true,
+	  dbName: "literary_labyrinth",
+	  useFindAndModify: false,
     useUnifiedTopology: true
-  }
-);
+}, ).then(() => {
+	  console.log('Connected to DB!');
+}).catch(err => {
+	  console.log('ERROR:', err.message);
+});
+
+// mongoose.connect('mongodb://localhost:27017/literary_labyrinth',
+//   {
+//     useNewUrlParser: true,
+//     useFindAndModify: false,
+//     useUnifiedTopology: true
+//   }
+// );
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
