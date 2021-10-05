@@ -13,7 +13,6 @@ var express         = require("express"),
 var ip = process.env.IP || '127.0.0.1',
     port = process.env.PORT || 3000;
 
-//Requiring routes
 var commentRoutes   = require("./routes/comments"),
     bookRoutes = require("./routes/books"),
     indexRoutes     = require("./routes/index");
@@ -32,7 +31,6 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
 
-// PASSPORT CONFIGURATION
 app.use(require("express-session")({
     secret: "Once again, this is the secret page.",
     resave: false,

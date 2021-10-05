@@ -3,16 +3,14 @@ var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
 
-//Route Route
 router.get("/", function(req, res){
    res.render("landing"); 
 });
 
-//Register Form Route
 router.get("/register", function(req, res){
    res.render("register");
 });
-//Handles Sign Up Logic
+
 router.post("/register", function(req, res){
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, function(err, user){
@@ -27,12 +25,10 @@ router.post("/register", function(req, res){
     });
 });
 
-//Show Login Form
 router.get("/login", function(req, res){
    res.render("login");
 });
 
-//Handling Login Logic
 router.post("/login", passport.authenticate("local", 
     {
         successRedirect: "/books",
@@ -40,7 +36,6 @@ router.post("/login", passport.authenticate("local",
     }), function(req, res){
 });
 
-//Logout Route
 router.get("/logout", function(req, res){
     req.logout();
     req.flash("success", "Logged you out!");

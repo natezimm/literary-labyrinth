@@ -3,7 +3,6 @@ var router = express.Router();
 var Book = require("../models/book");
 var middleware = require("../middleware");
 
-// INDEX ROUTE - show all books
 router.get("/", function(req, res){
     Book.find({}, function(err, allBooks){
        if(err){
@@ -14,7 +13,6 @@ router.get("/", function(req, res){
     });
 });
 
-// CREATE ROUTE - add new book to database
 router.post("/", middleware.isLoggedIn, function(req, res){
    var name = req.body.name;
    var writer = req.body.writer;
@@ -36,12 +34,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
    });
 });
 
-// NEW ROUTE - show form to create new book
 router.get("/new", middleware.isLoggedIn, function(req, res){
    res.render("books/new"); 
 });
 
-// SHOW ROUTE - shows more info about one book
 router.get("/:id", function(req, res){
     Book.findById(req.params.id).populate("comments").exec(function(err, foundBook){
         if(err){
@@ -52,14 +48,12 @@ router.get("/:id", function(req, res){
     });
 });
 
-// EDIT BOOK ROUTE
 router.get("/:id/edit", middleware.checkBookOwnership, function(req, res){
     Book.findById(req.params.id, function(err, foundBook){
         res.render("books/edit", {book: foundBook});
         });    
 });
 
-// UPDATE BOOK ROUTE
 router.put("/:id", middleware.checkBookOwnership, function(req, res){
     Book.findByIdAndUpdate(req.params.id, req.body.book, function(err, updatedBook){
         if(err){
@@ -70,7 +64,6 @@ router.put("/:id", middleware.checkBookOwnership, function(req, res){
     })
 });
 
-// DESTROY BOOK ROUTE
 router.delete("/:id", middleware.checkBookOwnership, function(req, res){
   Book.findByIdAndRemove(req.params.id, function(err){
       if(err){

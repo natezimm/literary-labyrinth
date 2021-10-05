@@ -4,7 +4,6 @@ var Book = require("../models/book");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 
-//Comments New Route
 router.get("/new", middleware.isLoggedIn, function(req, res){
    Book.findById(req.params.id, function(err, book){
       if(err){
@@ -15,7 +14,6 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
    });
 });
 
-//Comments Create Route
 router.post("/", middleware.isLoggedIn, function(req, res){
     Book.findById(req.params.id, function(err, book){
        if(err){
@@ -40,7 +38,6 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     });
 });
 
-// COMMENT EDIT ROUTE
 router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
    Comment.findById(req.params.comment_id, function(err, foundComment){
       if(err){
@@ -51,7 +48,6 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, 
    });
 });
 
-// COMMENT UPDATE ROUTE
 router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
         if(err){
@@ -62,7 +58,6 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
     })
 });
 
-// COMMENT DESTROY ROUTE
 router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, res){
     Comment.findByIdAndRemove(req.params.comment_id, function(err){
         if(err){
