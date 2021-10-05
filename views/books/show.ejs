@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-6">
             <div class="thumbnail">
-                <img class="img-responsive book-image" src="<%= book.image %>">
+                <img class="img-responsive book-image" src="<%= book.image ? book.image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Closed_Book_Icon.svg/1200px-Closed_Book_Icon.svg.png' %>">
                 <div class="caption-full">
                     <h4 class="pull-right">$<%= book.price %></h4>
                     <h4><%= book.name %></h4>
