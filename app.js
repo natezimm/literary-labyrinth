@@ -16,11 +16,11 @@ const commentRoutes   = require("./routes/comments"),
 
 const port = process.env.PORT || 3000;
 
-const MONGODB_URI = process.env.databaseURL;
+const MONGODB_URI = process.env.databaseURL || 'mongodb://localhost:27017/literary-labyrinth';
 mongoose.set('bufferCommands', false);
 mongoose.connect(MONGODB_URI, {
 	  useNewUrlParser: true,
-	  dbName: "literary_labyrinth",
+	  dbName: "literary-labyrinth",
 	  useFindAndModify: false,
     useUnifiedTopology: true
 }, ).then(() => {
