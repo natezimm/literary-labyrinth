@@ -18,7 +18,9 @@ app.set('port', (process.env.PORT || 3000));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-mongoose.connect('mongodb+srv://literary:labyrinth@literary-labyrinth.ddlwh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+const MONGODB_URI = 'mongodb+srv://literary:labyrinth@literary-labyrinth.ddlwh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.promise = Promise;
 
 app.use(express.static(__dirname + "/public"));
