@@ -14,32 +14,13 @@ const commentRoutes   = require("./routes/comments"),
       bookRoutes      = require("./routes/books"),
       indexRoutes     = require("./routes/index");
 
-const port = process.env.PORT || 3000;
-
-const MONGODB_URI = process.env.databaseURL || 'mongodb://localhost:27017/literary-labyrinth';
-mongoose.set('bufferCommands', false);
-mongoose.connect(MONGODB_URI, {
-	  useNewUrlParser: true,
-	  dbName: "literary-labyrinth",
-	  useFindAndModify: false,
-    useUnifiedTopology: true
-}, ).then(() => {
-	  console.log('Connected to DB!');
-}).catch(err => {
-	  console.log('ERROR:', err.message);
-});
-
-
-// mongoose.connect('mongodb://localhost:27017/literary_labyrinth',
-//   {
-//     useNewUrlParser: true,
-//     useFindAndModify: false,
-//     useUnifiedTopology: true
-//   }
-// );
-
+app.set('port', (process.env.PORT || 3000));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
+
+mongoose.connect('mongodb+srv://literary:labyrinth@literary-labyrinth.ddlwh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.promise = Promise;
+
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
@@ -66,6 +47,6 @@ app.use("/", indexRoutes);
 app.use("/books", bookRoutes);
 app.use("/books/:id/comments", commentRoutes);
 
-app.listen(port, function(){
-    console.log("The Literary Labyrinth Server has started!");
+app.listen(app.get('port'), function() {
+	console.log('App running on ', app.get('port'));
 });
