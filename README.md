@@ -1,3 +1,3 @@
 # Literary Labyrinth
 
-https://literary-labyrinth.herokuapp.com/
+https://literary-labyrinth.onrender.com
